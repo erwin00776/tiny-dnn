@@ -1,34 +1,43 @@
+include_directories(/home/erwin/git-repos/tiny-dnn)
+
+cmake_minimum_required(VERSION 3.6)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+find_package(Threads)
+
+
 add_executable(benchmarks_all benchmarks/main.cpp)
 target_link_libraries(benchmarks_all
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 if(USE_SERIALIZER)
 
 add_executable(example_mnist_train mnist/train.cpp)
 target_link_libraries(example_mnist_train
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} )
 
 add_executable(example_mnist_test mnist/test.cpp)
 target_link_libraries(example_mnist_test
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(example_mnist_quantized_train mnist/quantized.cpp)
 target_link_libraries(example_mnist_quantized_train
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(example_deconv_train deconv/train.cpp)
 target_link_libraries(example_deconv_train
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 endif()
 
 add_executable(example_deconv_visual deconv/visual.cpp)
 target_link_libraries(example_deconv_visual
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(example_cifar_train cifar10/train.cpp)
 target_link_libraries(example_cifar_train
-    ${project_library_target_name} ${REQUIRED_LIBRARIES})
+    ${project_library_target_name} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 
 if(PROTO_CPP_AVAILABLE)
     include_directories(${PROTOBUF_INCLUDE_DIRS})
@@ -37,7 +46,7 @@ if(PROTO_CPP_AVAILABLE)
                    caffe_converter/caffe_converter.cpp ${proto_file})
     target_link_libraries(example_caffe_converter
             ${project_library_target_name}
-            ${PROTOBUF_LIBRARIES} ${REQUIRED_LIBRARIES})
+            ${PROTOBUF_LIBRARIES} ${REQUIRED_LIBRARIES}  ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
 if(PROTO_CPP_GENERATE)

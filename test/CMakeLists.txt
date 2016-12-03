@@ -2,6 +2,11 @@ include(CTest)
 enable_testing()
 
 
+include_directories(/home/erwin/git-repos/tiny-dnn)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+
 include(../cmake/DownloadProject/DownloadProject.cmake)
 #set(gtest_disable_pthreads on) #TODO(randl): Windows?
 download_project(
